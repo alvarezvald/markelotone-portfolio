@@ -9,7 +9,7 @@ const ThreeScene = () => {
     scene: THREE.Scene;
     camera: THREE.PerspectiveCamera;
     renderer: THREE.WebGLRenderer;
-    mountains: THREE.Mesh[];
+    mountain: THREE.Mesh;
     animationId: number | null;
   } | null>(null);
 
@@ -28,81 +28,85 @@ const ThreeScene = () => {
     
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor(0x000000, 0);
+    renderer.setPixelRatio(window.devicePixelRatio); // For sharper rendering
     mountRef.current.appendChild(renderer.domElement);
 
-    // Create mountain geometry
-    const createMountain = (vertices: number, radius: number, height: number) => {
-      const geometry = new THREE.ConeGeometry(radius, height, vertices);
+    // Create a single wide mountain that spans the full width
+    const createWideMountain = () => {
+      // Create a custom geometry for a wide mountain
+      const geometry = new THREE.ConeGeometry(15, 8, 8); // Much wider base, taller
       const material = new THREE.MeshLambertMaterial({
-        color: new THREE.Color().setHSL(0.6, 0.6, 0.3 + Math.random() * 0.3),
+        color: new THREE.Color().setHSL(0.6, 0.7, 0.4),
         transparent: true,
-        opacity: 0.8
+        opacity: 0.9
       });
       return new THREE.Mesh(geometry, material);
     };
 
-    // Create multiple mountains
-    const mountains: THREE.Mesh[] = [];
-    for (let i = 0; i < 8; i++) {
-      const mountain = createMountain(
-        6 + Math.floor(Math.random() * 4),
-        2 + Math.random() * 3,
-        4 + Math.random() * 6
-      );
-      
-      mountain.position.x = (Math.random() - 0.5) * 30;
-      mountain.position.z = -10 - Math.random() * 20;
-      mountain.position.y = -2;
-      
-      mountain.rotation.y = Math.random() * Math.PI * 2;
-      
-      mountains.push(mountain);
-      scene.add(mountain);
-    }
+    // Create the single wide mountain
+    const mountain = createWideMountain();
+    mountain.position.set(0, -3, -15);
+    mountain.rotation.y = Math.PI * 0.1;
+    scene.add(mountain);
 
-    // Lighting
-    const ambientLight = new THREE.AmbientLight(0x404040, 0.6);
+    // Enhanced lighting for sharper appearance
+    const ambientLight = new THREE.AmbientLight(0x404040, 0.8);
     scene.add(ambientLight);
 
-    const directionalLight = new THREE.DirectionalLight(0x00ffff, 0.8);
-    directionalLight.position.set(10, 10, 5);
+    const directionalLight = new THREE.DirectionalLight(0x00ffff, 1.2);
+    directionalLight.position.set(15, 15, 10);
+    directionalLight.castShadow = true;
     scene.add(directionalLight);
 
-    const pointLight = new THREE.PointLight(0x4444ff, 1, 100);
-    pointLight.position.set(-10, 10, 10);
+    const pointLight = new THREE.PointLight(0x4444ff, 1.5, 100);
+    pointLight.position.set(-15, 15, 15);
     scene.add(pointLight);
 
-    // Stars
+    // Add rim lighting for sharper edges
+    const rimLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    rimLight.position.set(-10, 5, -10);
+    scene.add(rimLight);
+
+    // Stars background
     const starsGeometry = new THREE.BufferGeometry();
     const starsVertices = [];
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < 1500; i++) {
       starsVertices.push(
-        (Math.random() - 0.5) * 100,
-        (Math.random() - 0.5) * 100,
-        (Math.random() - 0.5) * 100
+        (Math.random() - 0.5) * 200,
+        (Math.random() - 0.5) * 200,
+        (Math.random() - 0.5) * 200
       );
     }
     starsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starsVertices, 3));
-    const starsMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.1 });
+    const starsMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.2 });
     const stars = new THREE.Points(starsGeometry, starsMaterial);
     scene.add(stars);
 
-    camera.position.z = 5;
-    camera.position.y = 2;
+    camera.position.set(0, 2, 8);
+    camera.lookAt(0, 0, -10);
 
     // Store scene references
     sceneRef.current = {
       scene,
       camera,
       renderer,
-      mountains,
+      mountain,
       animationId: null
     };
 
-    // Mouse move handler
+    // Mouse move handler for responsive interaction
     const handleMouseMove = (event: MouseEvent) => {
       mouseRef.current.x = (event.clientX / window.innerWidth) * 2 - 1;
       mouseRef.current.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    };
+
+    // Touch move handler for mobile devices
+    const handleTouchMove = (event: TouchEvent) => {
+      if (event.touches.length > 0) {
+        const touch = event.touches[0];
+        mouseRef.current.x = (touch.clientX / window.innerWidth) * 2 - 1;
+        mouseRef.current.y = -(touch.clientY / window.innerHeight) * 2 + 1;
+      }
     };
 
     // Animation loop
@@ -111,36 +115,40 @@ const ThreeScene = () => {
       
       sceneRef.current.animationId = requestAnimationFrame(animate);
 
-      // Camera movement based on mouse
-      const targetX = mouseRef.current.x * 0.5;
-      const targetY = mouseRef.current.y * 0.3;
+      // Enhanced camera movement based on mouse/touch
+      const targetX = mouseRef.current.x * 2;
+      const targetY = mouseRef.current.y * 1;
       
-      sceneRef.current.camera.position.x += (targetX - sceneRef.current.camera.position.x) * 0.05;
+      sceneRef.current.camera.position.x += (targetX - sceneRef.current.camera.position.x) * 0.08;
       sceneRef.current.camera.position.y += (targetY - sceneRef.current.camera.position.y) * 0.05;
       sceneRef.current.camera.lookAt(0, 0, -10);
 
-      // Rotate mountains slowly
-      sceneRef.current.mountains.forEach((mountain, index) => {
-        mountain.rotation.y += 0.001 * (index + 1);
-      });
+      // Subtle mountain rotation
+      sceneRef.current.mountain.rotation.y += 0.0005;
 
-      // Rotate stars
-      stars.rotation.y += 0.0005;
+      // Rotate stars slowly
+      stars.rotation.y += 0.0003;
+      stars.rotation.x += 0.0001;
 
       sceneRef.current.renderer.render(sceneRef.current.scene, sceneRef.current.camera);
     };
 
-    // Window resize handler
+    // Window resize handler for responsive design
     const handleResize = () => {
       if (!sceneRef.current) return;
       
-      sceneRef.current.camera.aspect = window.innerWidth / window.innerHeight;
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      
+      sceneRef.current.camera.aspect = width / height;
       sceneRef.current.camera.updateProjectionMatrix();
-      sceneRef.current.renderer.setSize(window.innerWidth, window.innerHeight);
+      sceneRef.current.renderer.setSize(width, height);
+      sceneRef.current.renderer.setPixelRatio(window.devicePixelRatio);
     };
 
     // Event listeners
     window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
     window.addEventListener('resize', handleResize);
 
     // Start animation
@@ -149,6 +157,7 @@ const ThreeScene = () => {
     // Cleanup
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('resize', handleResize);
       
       if (sceneRef.current) {
@@ -157,12 +166,10 @@ const ThreeScene = () => {
         }
         
         // Dispose of geometries and materials
-        sceneRef.current.mountains.forEach(mountain => {
-          mountain.geometry.dispose();
-          if (mountain.material instanceof THREE.Material) {
-            mountain.material.dispose();
-          }
-        });
+        sceneRef.current.mountain.geometry.dispose();
+        if (sceneRef.current.mountain.material instanceof THREE.Material) {
+          sceneRef.current.mountain.material.dispose();
+        }
         
         stars.geometry.dispose();
         if (stars.material instanceof THREE.Material) {
@@ -178,7 +185,7 @@ const ThreeScene = () => {
     };
   }, []);
 
-  return <div ref={mountRef} className="absolute inset-0" />;
+  return <div ref={mountRef} className="absolute inset-0 w-full h-full" />;
 };
 
 export default ThreeScene;

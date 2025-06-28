@@ -71,106 +71,106 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-slate-900 text-white">
-      {/* Navigation */}
+      {/* Navigation - Enhanced for mobile */}
       <nav className="fixed top-0 w-full z-50 bg-slate-900/95 backdrop-blur-sm border-b border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="text-xl font-bold text-cyan-400">Mark Anthony Alvarez</div>
+            <div className="text-lg sm:text-xl font-bold text-cyan-400 truncate">Mark Anthony Alvarez</div>
             
             {/* Desktop Navigation */}
-            <div className="hidden md:flex space-x-8">
-              <button onClick={() => scrollToSection('home')} className="hover:text-cyan-400 transition-colors">Home</button>
-              <button onClick={() => scrollToSection('about')} className="hover:text-cyan-400 transition-colors">About</button>
-              <button onClick={() => scrollToSection('tech-stack')} className="hover:text-cyan-400 transition-colors">Tech Stack</button>
-              <button onClick={() => scrollToSection('services')} className="hover:text-cyan-400 transition-colors">Services</button>
-              <button onClick={() => scrollToSection('contact')} className="hover:text-cyan-400 transition-colors">Contact</button>
+            <div className="hidden md:flex space-x-6 lg:space-x-8">
+              <button onClick={() => scrollToSection('home')} className="hover:text-cyan-400 transition-colors text-sm lg:text-base">Home</button>
+              <button onClick={() => scrollToSection('about')} className="hover:text-cyan-400 transition-colors text-sm lg:text-base">About</button>
+              <button onClick={() => scrollToSection('tech-stack')} className="hover:text-cyan-400 transition-colors text-sm lg:text-base">Tech Stack</button>
+              <button onClick={() => scrollToSection('services')} className="hover:text-cyan-400 transition-colors text-sm lg:text-base">Services</button>
+              <button onClick={() => scrollToSection('contact')} className="hover:text-cyan-400 transition-colors text-sm lg:text-base">Contact</button>
             </div>
 
             {/* Mobile menu button */}
             <button 
-              className="md:hidden"
+              className="md:hidden p-2"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
 
           {/* Mobile Navigation */}
           {isMenuOpen && (
-            <div className="md:hidden py-4 space-y-2">
-              <button onClick={() => scrollToSection('home')} className="block w-full text-left hover:text-cyan-400 transition-colors py-2">Home</button>
-              <button onClick={() => scrollToSection('about')} className="block w-full text-left hover:text-cyan-400 transition-colors py-2">About</button>
-              <button onClick={() => scrollToSection('tech-stack')} className="block w-full text-left hover:text-cyan-400 transition-colors py-2">Tech Stack</button>
-              <button onClick={() => scrollToSection('services')} className="block w-full text-left hover:text-cyan-400 transition-colors py-2">Services</button>
-              <button onClick={() => scrollToSection('contact')} className="block w-full text-left hover:text-cyan-400 transition-colors py-2">Contact</button>
+            <div className="md:hidden py-4 space-y-2 border-t border-slate-700">
+              <button onClick={() => scrollToSection('home')} className="block w-full text-left hover:text-cyan-400 transition-colors py-3 px-2 text-base">Home</button>
+              <button onClick={() => scrollToSection('about')} className="block w-full text-left hover:text-cyan-400 transition-colors py-3 px-2 text-base">About</button>
+              <button onClick={() => scrollToSection('tech-stack')} className="block w-full text-left hover:text-cyan-400 transition-colors py-3 px-2 text-base">Tech Stack</button>
+              <button onClick={() => scrollToSection('services')} className="block w-full text-left hover:text-cyan-400 transition-colors py-3 px-2 text-base">Services</button>
+              <button onClick={() => scrollToSection('contact')} className="block w-full text-left hover:text-cyan-400 transition-colors py-3 px-2 text-base">Contact</button>
             </div>
           )}
         </div>
       </nav>
 
-      {/* Hero Section with 3D Background */}
+      {/* Hero Section with 3D Background - Enhanced responsive */}
       <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0 w-full h-full">
           <ThreeScene />
         </div>
         
-        <div className="relative z-10 text-center max-w-4xl mx-auto px-4">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+        <div className="relative z-10 text-center max-w-4xl mx-auto px-4 sm:px-6">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent leading-tight">
             Mark Anthony Alvarez
           </h1>
-          <h2 className="text-2xl md:text-3xl font-semibold mb-8 text-slate-300">
+          <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold mb-6 sm:mb-8 text-slate-300 px-2">
             QA Engineer & Test Automation Specialist
           </h2>
-          <p className="text-lg md:text-xl mb-12 text-slate-400 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl mb-8 sm:mb-12 text-slate-400 max-w-2xl mx-auto leading-relaxed px-2">
             Passionate about ensuring quality through comprehensive testing of web apps, mobile apps, and APIs. 
             I love investigating issues and tracking down bugs to deliver exceptional user experiences.
           </p>
           <Button 
             onClick={() => scrollToSection('contact')} 
-            className="bg-cyan-500 hover:bg-cyan-600 text-white px-8 py-3 text-lg rounded-lg transition-all duration-300 transform hover:scale-105"
+            className="bg-cyan-500 hover:bg-cyan-600 text-white px-6 sm:px-8 py-2 sm:py-3 text-base sm:text-lg rounded-lg transition-all duration-300 transform hover:scale-105 w-full sm:w-auto max-w-xs"
           >
             Get In Touch
           </Button>
         </div>
 
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <ChevronDown size={32} className="text-cyan-400" />
+        <div className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <ChevronDown size={24} className="text-cyan-400 sm:w-8 sm:h-8" />
         </div>
       </section>
 
-      {/* About Section */}
-      <section id="about" className="py-20 bg-slate-800">
+      {/* About Section - Enhanced responsive */}
+      <section id="about" className="py-12 sm:py-16 lg:py-20 bg-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4 text-cyan-400">About Me</h2>
-            <div className="w-24 h-1 bg-cyan-400 mx-auto"></div>
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-cyan-400">About Me</h2>
+            <div className="w-16 sm:w-24 h-1 bg-cyan-400 mx-auto"></div>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <h3 className="text-2xl font-semibold mb-4">QA Engineer with a Passion for Quality</h3>
-              <p className="text-slate-300 text-lg leading-relaxed">
+          <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center">
+            <div className="space-y-4 sm:space-y-6 order-2 lg:order-1">
+              <h3 className="text-xl sm:text-2xl font-semibold mb-4">QA Engineer with a Passion for Quality</h3>
+              <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
                 I'm a dedicated QA Engineer who thrives on ensuring software quality through meticulous testing 
                 and automation. My expertise spans across web applications, mobile apps, and API testing using 
                 modern tools and methodologies.
               </p>
-              <p className="text-slate-300 text-lg leading-relaxed">
+              <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
                 I specialize in both manual and automated testing, with a particular love for front-end and 
                 end-to-end testing. There's nothing more satisfying than diving deep into complex issues, 
                 tracking down elusive bugs, and ensuring users have seamless experiences.
               </p>
-              <p className="text-slate-300 text-lg leading-relaxed">
+              <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
                 When I'm not testing applications, you'll find me exploring the outdoors through hiking and 
                 climbing, staying fit with endurance sports, or unwinding with video games. I believe in 
                 maintaining a healthy work-life balance while staying passionate about technology.
               </p>
             </div>
 
-            <div className="flex justify-center">
-              <div className="w-80 h-80 bg-slate-700 rounded-full flex items-center justify-center border-4 border-cyan-400">
+            <div className="flex justify-center order-1 lg:order-2">
+              <div className="w-64 h-64 sm:w-80 sm:h-80 bg-slate-700 rounded-full flex items-center justify-center border-4 border-cyan-400">
                 <div className="text-center">
-                  <div className="text-6xl mb-4">👨‍💻</div>
-                  <p className="text-slate-400">Your photo will go here</p>
+                  <div className="text-4xl sm:text-6xl mb-4">👨‍💻</div>
+                  <p className="text-slate-400 text-sm sm:text-base">Your photo will go here</p>
                 </div>
               </div>
             </div>
@@ -178,23 +178,23 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Tech Stack Section */}
-      <section id="tech-stack" className="py-20 bg-slate-900">
+      {/* Tech Stack Section - Enhanced responsive */}
+      <section id="tech-stack" className="py-12 sm:py-16 lg:py-20 bg-slate-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4 text-cyan-400">Tech Stack</h2>
-            <div className="w-24 h-1 bg-cyan-400 mx-auto mb-6"></div>
-            <p className="text-slate-300 text-lg max-w-2xl mx-auto">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-cyan-400">Tech Stack</h2>
+            <div className="w-16 sm:w-24 h-1 bg-cyan-400 mx-auto mb-6"></div>
+            <p className="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto px-2">
               Tools and technologies I use to deliver comprehensive testing solutions
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
             {techStack.map((tech, index) => (
               <Card key={index} className="bg-slate-800 border-slate-700 hover:border-cyan-400 transition-all duration-300 transform hover:scale-105">
-                <CardContent className="p-6 text-center">
-                  <h3 className="font-semibold text-white mb-2">{tech.name}</h3>
-                  <p className="text-sm text-cyan-400">{tech.category}</p>
+                <CardContent className="p-4 sm:p-6 text-center">
+                  <h3 className="font-semibold text-white mb-2 text-sm sm:text-base">{tech.name}</h3>
+                  <p className="text-xs sm:text-sm text-cyan-400">{tech.category}</p>
                 </CardContent>
               </Card>
             ))}
@@ -202,29 +202,29 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section id="services" className="py-20 bg-slate-800">
+      {/* Services Section - Enhanced responsive */}
+      <section id="services" className="py-12 sm:py-16 lg:py-20 bg-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4 text-cyan-400">Services</h2>
-            <div className="w-24 h-1 bg-cyan-400 mx-auto mb-6"></div>
-            <p className="text-slate-300 text-lg max-w-2xl mx-auto">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-cyan-400">Services</h2>
+            <div className="w-16 sm:w-24 h-1 bg-cyan-400 mx-auto mb-6"></div>
+            <p className="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto px-2">
               Comprehensive testing services to ensure your applications meet the highest quality standards
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
             {services.map((service, index) => (
               <Card key={index} className="bg-slate-900 border-slate-700 hover:border-cyan-400 transition-all duration-300">
                 <CardHeader>
-                  <CardTitle className="text-xl text-cyan-400">{service.title}</CardTitle>
-                  <CardDescription className="text-slate-300">{service.description}</CardDescription>
+                  <CardTitle className="text-lg sm:text-xl text-cyan-400">{service.title}</CardTitle>
+                  <CardDescription className="text-slate-300 text-sm sm:text-base">{service.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-2">
                     {service.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-center text-slate-300">
-                        <span className="w-2 h-2 bg-cyan-400 rounded-full mr-3"></span>
+                      <li key={featureIndex} className="flex items-center text-slate-300 text-sm sm:text-base">
+                        <span className="w-2 h-2 bg-cyan-400 rounded-full mr-3 flex-shrink-0"></span>
                         {feature}
                       </li>
                     ))}
@@ -236,21 +236,21 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="py-20 bg-slate-900">
+      {/* Contact Section - Enhanced responsive */}
+      <section id="contact" className="py-12 sm:py-16 lg:py-20 bg-slate-900">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4 text-cyan-400">Get In Touch</h2>
-            <div className="w-24 h-1 bg-cyan-400 mx-auto mb-6"></div>
-            <p className="text-slate-300 text-lg">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-cyan-400">Get In Touch</h2>
+            <div className="w-16 sm:w-24 h-1 bg-cyan-400 mx-auto mb-6"></div>
+            <p className="text-slate-300 text-base sm:text-lg px-2">
               Ready to discuss your testing needs? Let's connect and ensure your applications deliver exceptional quality.
             </p>
           </div>
 
           <Card className="bg-slate-800 border-slate-700">
-            <CardContent className="p-8">
+            <CardContent className="p-6 sm:p-8">
               <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-slate-300 mb-2">
                       Name
@@ -260,7 +260,7 @@ const Index = () => {
                       type="text"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="bg-slate-700 border-slate-600 text-white focus:border-cyan-400"
+                      className="bg-slate-700 border-slate-600 text-white focus:border-cyan-400 text-base"
                       required
                     />
                   </div>
@@ -273,7 +273,7 @@ const Index = () => {
                       type="email"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="bg-slate-700 border-slate-600 text-white focus:border-cyan-400"
+                      className="bg-slate-700 border-slate-600 text-white focus:border-cyan-400 text-base"
                       required
                     />
                   </div>
@@ -287,13 +287,13 @@ const Index = () => {
                     rows={6}
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="bg-slate-700 border-slate-600 text-white focus:border-cyan-400"
+                    className="bg-slate-700 border-slate-600 text-white focus:border-cyan-400 text-base resize-none"
                     required
                   />
                 </div>
                 <Button 
                   type="submit" 
-                  className="w-full bg-cyan-500 hover:bg-cyan-600 text-white py-3 text-lg rounded-lg transition-all duration-300"
+                  className="w-full bg-cyan-500 hover:bg-cyan-600 text-white py-3 text-base sm:text-lg rounded-lg transition-all duration-300"
                 >
                   Send Message
                 </Button>
@@ -303,10 +303,10 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-slate-800 py-8 border-t border-slate-700">
+      {/* Footer - Enhanced responsive */}
+      <footer className="bg-slate-800 py-6 sm:py-8 border-t border-slate-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-slate-400">
+          <p className="text-slate-400 text-sm sm:text-base">
             © 2024 Mark Anthony Alvarez. QA Engineer passionate about quality and excellence.
           </p>
         </div>
