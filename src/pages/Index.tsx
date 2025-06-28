@@ -75,7 +75,7 @@ const Index = () => {
       <nav className="fixed top-0 w-full z-50 bg-slate-900/95 backdrop-blur-sm border-b border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="text-xl font-bold text-cyan-400">Mark Alvarez</div>
+            <div className="text-xl font-bold text-cyan-400">Mark Anthony Alvarez</div>
             
             {/* Desktop Navigation */}
             <div className="hidden md:flex space-x-8">
@@ -116,7 +116,7 @@ const Index = () => {
         
         <div className="relative z-10 text-center max-w-4xl mx-auto px-4">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-            Mark Alvarez
+            Mark Anthony Alvarez
           </h1>
           <h2 className="text-2xl md:text-3xl font-semibold mb-8 text-slate-300">
             QA Engineer & Test Automation Specialist
@@ -307,7 +307,7 @@ const Index = () => {
       <footer className="bg-slate-800 py-8 border-t border-slate-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-slate-400">
-            © 2024 Mark Alvarez. QA Engineer passionate about quality and excellence.
+            © 2024 Mark Anthony Alvarez. QA Engineer passionate about quality and excellence.
           </p>
         </div>
       </footer>
