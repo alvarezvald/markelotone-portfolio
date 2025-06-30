@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from 'react';
 import { Mail, Phone, Github, Linkedin, ChevronDown, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -34,16 +33,9 @@ const Index = () => {
   const techStack = [
     { name: 'Playwright', category: 'Automation' },
     { name: 'Postman', category: 'API Testing' },
-    { name: 'Selenium', category: 'Automation' },
-    { name: 'Jest', category: 'Unit Testing' },
-    { name: 'Cypress', category: 'E2E Testing' },
-    { name: 'TestRail', category: 'Test Management' },
-    { name: 'JIRA', category: 'Bug Tracking' },
     { name: 'JavaScript', category: 'Programming' },
-    { name: 'Python', category: 'Programming' },
     { name: 'SQL', category: 'Database' },
-    { name: 'Git', category: 'Version Control' },
-    { name: 'Docker', category: 'DevOps' }
+    { name: 'Git', category: 'Version Control' }
   ];
 
   const services = [
