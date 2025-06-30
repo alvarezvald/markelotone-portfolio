@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Mail, Phone, Github, Linkedin, ChevronDown, Menu, X } from 'lucide-react';
+import { Mail, Phone, Github, Linkedin, ChevronDown, Menu, X, Globe, Code, Database } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -31,11 +31,10 @@ const Index = () => {
   };
 
   const techStack = [
-    { name: 'Playwright', category: 'Automation' },
-    { name: 'Postman', category: 'API Testing' },
-    { name: 'JavaScript', category: 'Programming' },
-    { name: 'SQL', category: 'Database' },
-    { name: 'Git', category: 'Version Control' }
+    { name: 'Playwright', category: 'Automation', icon: Globe },
+    { name: 'Postman', category: 'API Testing', icon: Globe },
+    { name: 'JavaScript', category: 'Programming', icon: Code },
+    { name: 'SQL', category: 'Database', icon: Database }
   ];
 
   const services = [
@@ -182,14 +181,20 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-            {techStack.map((tech, index) => (
-              <Card key={index} className="bg-slate-800 border-slate-700 hover:border-cyan-400 transition-all duration-300 transform hover:scale-105">
-                <CardContent className="p-4 sm:p-6 text-center">
-                  <h3 className="font-semibold text-white mb-2 text-sm sm:text-base">{tech.name}</h3>
-                  <p className="text-xs sm:text-sm text-cyan-400">{tech.category}</p>
-                </CardContent>
-              </Card>
-            ))}
+            {techStack.map((tech, index) => {
+              const IconComponent = tech.icon;
+              return (
+                <Card key={index} className="bg-slate-800 border-slate-700 hover:border-cyan-400 transition-all duration-300 transform hover:scale-105">
+                  <CardContent className="p-4 sm:p-6 text-center">
+                    <div className="flex justify-center mb-3">
+                      <IconComponent size={32} className="text-cyan-400" />
+                    </div>
+                    <h3 className="font-semibold text-white mb-2 text-sm sm:text-base">{tech.name}</h3>
+                    <p className="text-xs sm:text-sm text-cyan-400">{tech.category}</p>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </section>
