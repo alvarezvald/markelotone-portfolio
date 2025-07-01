@@ -439,6 +439,87 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Projects Section - Enhanced responsive */}
+      {/* 
+      <section id="projects" className="py-12 sm:py-16 lg:py-20 bg-slate-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-cyan-400">
+              Projects
+            </h2>
+            <div className="w-16 sm:w-24 h-1 bg-cyan-400 mx-auto mb-6"></div>
+            <p className="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto px-2">
+              Featured projects showcasing my testing expertise and technical skills
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+            <Card className="bg-slate-800 border-slate-700 hover:border-cyan-400 transition-all duration-300">
+              <CardHeader>
+                <CardTitle className="text-lg sm:text-xl text-cyan-400">
+                  Project 1 Title
+                </CardTitle>
+                <CardDescription className="text-slate-300 text-sm sm:text-base">
+                  Description of your first project and the testing methodologies used.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2">
+                  <li className="flex items-center text-slate-300 text-sm sm:text-base">
+                    <span className="w-2 h-2 bg-cyan-400 rounded-full mr-3 flex-shrink-0"></span>
+                    Feature 1
+                  </li>
+                  <li className="flex items-center text-slate-300 text-sm sm:text-base">
+                    <span className="w-2 h-2 bg-cyan-400 rounded-full mr-3 flex-shrink-0"></span>
+                    Feature 2
+                  </li>
+                  <li className="flex items-center text-slate-300 text-sm sm:text-base">
+                    <span className="w-2 h-2 bg-cyan-400 rounded-full mr-3 flex-shrink-0"></span>
+                    Feature 3
+                  </li>
+                  <li className="flex items-center text-slate-300 text-sm sm:text-base">
+                    <span className="w-2 h-2 bg-cyan-400 rounded-full mr-3 flex-shrink-0"></span>
+                    Feature 4
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-slate-800 border-slate-700 hover:border-cyan-400 transition-all duration-300">
+              <CardHeader>
+                <CardTitle className="text-lg sm:text-xl text-cyan-400">
+                  Project 2 Title
+                </CardTitle>
+                <CardDescription className="text-slate-300 text-sm sm:text-base">
+                  Description of your second project and the testing approaches implemented.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2">
+                  <li className="flex items-center text-slate-300 text-sm sm:text-base">
+                    <span className="w-2 h-2 bg-cyan-400 rounded-full mr-3 flex-shrink-0"></span>
+                    Feature 1
+                  </li>
+                  <li className="flex items-center text-slate-300 text-sm sm:text-base">
+                    <span className="w-2 h-2 bg-cyan-400 rounded-full mr-3 flex-shrink-0"></span>
+                    Feature 2
+                  </li>
+                  <li className="flex items-center text-slate-300 text-sm sm:text-base">
+                    <span className="w-2 h-2 bg-cyan-400 rounded-full mr-3 flex-shrink-0"></span>
+                    Feature 3
+                  </li>
+                  <li className="flex items-center text-slate-300 text-sm sm:text-base">
+                    <span className="w-2 h-2 bg-cyan-400 rounded-full mr-3 flex-shrink-0"></span>
+                    Feature 4
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+      */}
+
       {/* Contact Section - Enhanced responsive */}
       <section id="contact" className="py-12 sm:py-16 lg:py-20 bg-slate-900">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
