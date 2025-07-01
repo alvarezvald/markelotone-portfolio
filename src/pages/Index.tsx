@@ -24,6 +24,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import ThreeScene from "@/components/ThreeScene";
 import { validateContactForm, sanitizeInput } from "@/utils/formSecurity";
+import { sendContactEmail } from "@/utils/emailService";
 
 const Index = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -90,8 +91,8 @@ const Index = () => {
         sanitizedData,
       });
 
-      // Simulate email sending (replace with actual email service)
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Send actual email using EmailJS
+      await sendContactEmail(sanitizedData);
 
       toast({
         title: "Message Sent!",
