@@ -9,7 +9,7 @@ import {
   X,
   Globe,
   Code,
-  Database,
+  Network,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import ThreeScene from "@/components/ThreeScene";
+import { validateContactForm, sanitizeInput } from "@/utils/formSecurity";
 
 const Index = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -30,16 +31,88 @@ const Index = () => {
     name: "",
     email: "",
     message: "",
+    honeypot: "", // Hidden field for spam protection
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionCount, setSubmissionCount] = useState(0);
+  const lastSubmissionTime = useRef<number>(0);
   const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for reaching out. I'll get back to you soon.",
-    });
-    setFormData({ name: "", email: "", message: "" });
+    
+    // Rate limiting - prevent more than 3 submissions per 5 minutes
+    const now = Date.now();
+    if (submissionCount >= 3 && now - lastSubmissionTime.current < 300000) {
+      toast({
+        title: "Too Many Requests",
+        description: "Please wait before submitting another message.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Honeypot check for spam protection
+    if (formData.honeypot) {
+      toast({
+        title: "Spam Detected",
+        description: "Your submission was flagged as spam.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Validate form data
+    const validation = validateContactForm(formData);
+    if (!validation.isValid) {
+      toast({
+        title: "Validation Error",
+        description: validation.error,
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // Sanitize inputs
+      const sanitizedData = {
+        name: sanitizeInput(formData.name),
+        email: sanitizeInput(formData.email),
+        message: sanitizeInput(formData.message),
+      };
+
+      // Log security event (in production, this would go to a monitoring service)
+      console.log("Form submission attempt:", {
+        timestamp: new Date().toISOString(),
+        userAgent: navigator.userAgent,
+        sanitizedData,
+      });
+
+      // Simulate email sending (replace with actual email service)
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      toast({
+        title: "Message Sent!",
+        description: "Thank you for reaching out. I'll get back to you soon.",
+      });
+
+      // Reset form and update rate limiting
+      setFormData({ name: "", email: "", message: "", honeypot: "" });
+      setSubmissionCount(prev => prev + 1);
+      lastSubmissionTime.current = now;
+
+    } catch (error) {
+      console.error("Form submission error:", error);
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const scrollToSection = (id: string) => {
@@ -51,7 +124,7 @@ const Index = () => {
     { name: "Playwright", category: "Automation", icon: Globe },
     { name: "Postman", category: "API Testing", icon: Globe },
     { name: "JavaScript", category: "Programming", icon: Code },
-    { name: "SQL", category: "Database", icon: Database },
+    { name: "Charles Proxy", category: "Network Analysis", icon: Network },
   ];
 
   const services = [
@@ -271,10 +344,6 @@ const Index = () => {
                     alt=""
                     className="w-64 h-64 sm:w-80 sm:h-80 bg-slate-700 rounded-full flex items-center justify-center border-4 border-cyan-400"
                   />
-                  {/* <div className="text-4xl sm:text-6xl mb-4">👨‍💻</div>
-                  <p className="text-slate-400 text-sm sm:text-base">
-                    Your photo will go here
-                  </p> */}
                 </div>
               </div>
             </div>
@@ -386,13 +455,26 @@ const Index = () => {
           <Card className="bg-slate-800 border-slate-700">
             <CardContent className="p-6 sm:p-8">
               <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Honeypot field - hidden from users */}
+                <input
+                  type="text"
+                  name="honeypot"
+                  value={formData.honeypot}
+                  onChange={(e) =>
+                    setFormData({ ...formData, honeypot: e.target.value })
+                  }
+                  style={{ display: "none" }}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+                
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label
                       htmlFor="name"
                       className="block text-sm font-medium text-slate-300 mb-2"
                     >
-                      Name
+                      Name *
                     </label>
                     <Input
                       id="name"
@@ -403,6 +485,8 @@ const Index = () => {
                       }
                       className="bg-slate-700 border-slate-600 text-white focus:border-cyan-400 text-base"
                       required
+                      maxLength={100}
+                      disabled={isSubmitting}
                     />
                   </div>
                   <div>
@@ -410,7 +494,7 @@ const Index = () => {
                       htmlFor="email"
                       className="block text-sm font-medium text-slate-300 mb-2"
                     >
-                      Email
+                      Email *
                     </label>
                     <Input
                       id="email"
@@ -421,6 +505,8 @@ const Index = () => {
                       }
                       className="bg-slate-700 border-slate-600 text-white focus:border-cyan-400 text-base"
                       required
+                      maxLength={100}
+                      disabled={isSubmitting}
                     />
                   </div>
                 </div>
@@ -429,7 +515,7 @@ const Index = () => {
                     htmlFor="message"
                     className="block text-sm font-medium text-slate-300 mb-2"
                   >
-                    Message
+                    Message *
                   </label>
                   <Textarea
                     id="message"
@@ -440,13 +526,19 @@ const Index = () => {
                     }
                     className="bg-slate-700 border-slate-600 text-white focus:border-cyan-400 text-base resize-none"
                     required
+                    maxLength={1000}
+                    disabled={isSubmitting}
                   />
+                  <p className="text-xs text-slate-400 mt-1">
+                    {formData.message.length}/1000 characters
+                  </p>
                 </div>
                 <Button
                   type="submit"
-                  className="w-full bg-cyan-500 hover:bg-cyan-600 text-white py-3 text-base sm:text-lg rounded-lg transition-all duration-300"
+                  className="w-full bg-cyan-500 hover:bg-cyan-600 text-white py-3 text-base sm:text-lg rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={isSubmitting}
                 >
-                  Send Message
+                  {isSubmitting ? "Sending..." : "Send Message"}
                 </Button>
               </form>
             </CardContent>
