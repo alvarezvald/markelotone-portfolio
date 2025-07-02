@@ -41,7 +41,7 @@ const Index = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Rate limiting - prevent more than 3 submissions per 5 minutes
     const now = Date.now();
     if (submissionCount >= 3 && now - lastSubmissionTime.current < 300000) {
@@ -101,9 +101,8 @@ const Index = () => {
 
       // Reset form and update rate limiting
       setFormData({ name: "", email: "", message: "", honeypot: "" });
-      setSubmissionCount(prev => prev + 1);
+      setSubmissionCount((prev) => prev + 1);
       lastSubmissionTime.current = now;
-
     } catch (error) {
       console.error("Form submission error:", error);
       toast({
@@ -341,7 +340,7 @@ const Index = () => {
               <div>
                 <div className="text-center">
                   <img
-                    src="./images/AlvarezCity.jpg"
+                    src="./images/alvarez.jpg"
                     alt=""
                     className="w-64 h-64 sm:w-80 sm:h-80 bg-slate-700 rounded-full flex items-center justify-center border-4 border-cyan-400"
                   />
@@ -549,7 +548,7 @@ const Index = () => {
                   tabIndex={-1}
                   autoComplete="off"
                 />
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label
