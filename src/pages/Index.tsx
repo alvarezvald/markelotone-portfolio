@@ -332,7 +332,7 @@ const Index = () => {
 
         {/* Scroll Progress Indicator */}
         <div className="fixed top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 to-purple-600 z-50 origin-left transform transition-transform duration-150"
-             style={{ scaleX: Math.min(1, scrollY / (document.body.scrollHeight - window.innerHeight)) }}>
+             style={{ transform: `scaleX(${Math.min(1, scrollY / (document.body.scrollHeight - window.innerHeight))})` }}>
         </div>
       </section>
 
