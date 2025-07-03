@@ -10,6 +10,9 @@ import {
   Globe,
   Code,
   Network,
+  Palette,
+  Layers,
+  Zap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,12 +25,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import ThreeScene from "@/components/ThreeScene";
+import ParallaxMountain from "@/components/ParallaxMountain";
 import { validateContactForm, sanitizeInput } from "@/utils/formSecurity";
 import { sendContactEmail } from "@/utils/emailService";
 
 const Index = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -38,6 +42,15 @@ const Index = () => {
   const [submissionCount, setSubmissionCount] = useState(0);
   const lastSubmissionTime = useRef<number>(0);
   const { toast } = useToast();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -121,63 +134,65 @@ const Index = () => {
   };
 
   const techStack = [
-    { name: "Playwright", category: "Automation", icon: Globe },
-    { name: "Postman", category: "API Testing", icon: Globe },
-    { name: "JavaScript", category: "Programming", icon: Code },
-    { name: "Charles Proxy", category: "Network Analysis", icon: Network },
+    { name: "Figma", category: "Design", icon: Palette },
+    { name: "Adobe XD", category: "Prototyping", icon: Layers },
+    { name: "React", category: "Development", icon: Code },
+    { name: "Three.js", category: "3D Graphics", icon: Zap },
   ];
 
   const services = [
     {
-      title: "Web Application Testing",
+      title: "UI/UX Design",
       description:
-        "Comprehensive testing of web applications across different browsers and devices, ensuring optimal user experience.",
+        "Creating intuitive and visually stunning user interfaces that provide exceptional user experiences across all platforms.",
       features: [
-        "Cross-browser testing",
-        "Responsive design validation",
-        "Performance testing",
-        "Accessibility testing",
+        "User research & analysis",
+        "Wireframing & prototyping",
+        "Visual design systems",
+        "Usability testing",
       ],
     },
     {
-      title: "Mobile App Testing",
+      title: "Interactive Experiences",
       description:
-        "Testing mobile applications on iOS and Android platforms, including app store deployment validation.",
+        "Developing immersive digital experiences using modern web technologies and 3D graphics to engage users.",
       features: [
-        "iOS/Android testing",
-        "Device compatibility",
-        "App store guidelines",
+        "3D web experiences",
+        "Motion design & animations",
+        "Interactive prototypes",
+        "WebGL implementations",
+      ],
+    },
+    {
+      title: "Frontend Development",
+      description:
+        "Building responsive, performant web applications with modern frameworks and cutting-edge technologies.",
+      features: [
+        "React & TypeScript",
+        "Responsive design",
         "Performance optimization",
+        "Modern CSS techniques",
       ],
     },
     {
-      title: "API Testing",
+      title: "Design Systems",
       description:
-        "Thorough testing of REST APIs using Postman and automated testing frameworks.",
+        "Creating comprehensive design systems that ensure consistency and scalability across digital products.",
       features: [
-        "REST API validation",
-        "Postman collections",
-        "Response validation",
-        "Load testing",
-      ],
-    },
-    {
-      title: "Test Automation",
-      description:
-        "Creating robust automation frameworks using Playwright and other modern testing tools.",
-      features: [
-        "Playwright automation",
-        "CI/CD integration",
-        "Test reporting",
-        "Maintenance",
+        "Component libraries",
+        "Style guides",
+        "Documentation",
+        "Brand consistency",
       ],
     },
   ];
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white">
+    <div className="min-h-screen bg-gradient-to-b from-slate-900 via-purple-900 to-slate-900 text-white relative overflow-x-hidden">
+      <ParallaxMountain />
+      
       {/* Navigation - Enhanced for mobile */}
-      <nav className="fixed top-0 w-full z-50 bg-slate-900/95 backdrop-blur-sm border-b border-slate-800">
+      <nav className="fixed top-0 w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-700/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="text-lg sm:text-xl font-bold text-cyan-400 truncate">
@@ -265,42 +280,114 @@ const Index = () => {
         </div>
       </nav>
 
-      {/* Hero Section with 3D Background - Enhanced responsive */}
+      {/* Hero Section with Parallax Mountain Background */}
       <section
         id="home"
         className="relative h-screen flex items-center justify-center overflow-hidden"
       >
-        <div className="absolute inset-0 z-0 w-full h-full">
-          <ThreeScene />
-        </div>
-
         <div className="relative z-10 text-center max-w-4xl mx-auto px-4 sm:px-6">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent leading-tight">
-            Mark Anthony Alvarez
-          </h1>
-          <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold mb-6 sm:mb-8 text-slate-300 px-2">
-            QA Engineer & Test Automation Specialist
-          </h2>
-          <p className="text-base sm:text-lg md:text-xl mb-8 sm:mb-12 text-slate-400 max-w-2xl mx-auto leading-relaxed px-2">
-            Passionate about ensuring quality through comprehensive testing of
-            web apps, mobile apps, and APIs. I love investigating issues and
-            tracking down bugs to deliver exceptional user experiences.
-          </p>
-          <Button
-            onClick={() => scrollToSection("contact")}
-            className="bg-cyan-500 hover:bg-cyan-600 text-white px-6 sm:px-8 py-2 sm:py-3 text-base sm:text-lg rounded-lg transition-all duration-300 transform hover:scale-105 w-full sm:w-auto max-w-xs"
+          <div 
+            className="transform transition-all duration-1000"
+            style={{
+              transform: `translateY(${scrollY * 0.3}px) scale(${1 + scrollY * 0.0002})`,
+              opacity: Math.max(0, 1 - scrollY * 0.002)
+            }}
           >
-            Get In Touch
-          </Button>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-cyan-400 via-purple-400 to-blue-500 bg-clip-text text-transparent leading-tight">
+              Mark Anthony Alvarez
+            </h1>
+            <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold mb-6 sm:mb-8 text-slate-200 px-2">
+              UI/UX Designer & Interactive Developer
+            </h2>
+            <p className="text-base sm:text-lg md:text-xl mb-8 sm:mb-12 text-slate-300 max-w-2xl mx-auto leading-relaxed px-2">
+              Creating immersive digital experiences through innovative design and cutting-edge web technologies. 
+              Specializing in 3D web experiences, motion design, and user-centered interfaces.
+            </p>
+          </div>
+          
+          <div 
+            className="transform transition-all duration-1000"
+            style={{
+              transform: `translateY(${scrollY * -0.2}px)`,
+              opacity: Math.max(0, 1 - scrollY * 0.001)
+            }}
+          >
+            <Button
+              onClick={() => scrollToSection("services")}
+              className="bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-600 hover:to-purple-700 text-white px-6 sm:px-8 py-2 sm:py-3 text-base sm:text-lg rounded-lg transition-all duration-300 transform hover:scale-105 w-full sm:w-auto max-w-xs shadow-lg"
+            >
+              Explore My Work
+            </Button>
+          </div>
         </div>
 
-        <div className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <div 
+          className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce"
+          style={{
+            opacity: Math.max(0, 1 - scrollY * 0.01)
+          }}
+        >
           <ChevronDown size={24} className="text-cyan-400 sm:w-8 sm:h-8" />
+        </div>
+
+        {/* Scroll Progress Indicator */}
+        <div className="fixed top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 to-purple-600 z-50 origin-left transform transition-transform duration-150"
+             style={{ scaleX: Math.min(1, scrollY / (document.body.scrollHeight - window.innerHeight)) }}>
         </div>
       </section>
 
-      {/* About Section - Enhanced responsive */}
-      <section id="about" className="py-12 sm:py-16 lg:py-20 bg-slate-800">
+      {/* Services Section with Scroll Animations */}
+      <section id="services" className="py-12 sm:py-16 lg:py-20 relative z-20 bg-slate-900/90 backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+              Design Services
+            </h2>
+            <div className="w-16 sm:w-24 h-1 bg-gradient-to-r from-cyan-400 to-purple-600 mx-auto mb-6"></div>
+            <p className="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto px-2">
+              Transforming ideas into engaging digital experiences through innovative design and development
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+            {services.map((service, index) => (
+              <Card
+                key={index}
+                className="bg-slate-800/60 backdrop-blur-sm border-slate-700/50 hover:border-cyan-400/50 transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-cyan-400/10"
+                style={{
+                  transform: `translateY(${Math.max(0, (scrollY - 800) * 0.1 - index * 20)}px)`,
+                  opacity: Math.min(1, Math.max(0, (scrollY - 600) / 400))
+                }}
+              >
+                <CardHeader>
+                  <CardTitle className="text-lg sm:text-xl bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+                    {service.title}
+                  </CardTitle>
+                  <CardDescription className="text-slate-300 text-sm sm:text-base">
+                    {service.description}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2">
+                    {service.features.map((feature, featureIndex) => (
+                      <li
+                        key={featureIndex}
+                        className="flex items-center text-slate-300 text-sm sm:text-base"
+                      >
+                        <span className="w-2 h-2 bg-gradient-to-r from-cyan-400 to-purple-600 rounded-full mr-3 flex-shrink-0"></span>
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section id="about" className="py-12 sm:py-16 lg:py-20 bg-slate-800/80 backdrop-blur-sm relative z-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 sm:mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-cyan-400">
@@ -351,17 +438,16 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Tech Stack Section - Enhanced responsive */}
-      <section id="tech-stack" className="py-12 sm:py-16 lg:py-20 bg-slate-900">
+      {/* Tech Stack Section */}
+      <section id="tech-stack" className="py-12 sm:py-16 lg:py-20 bg-slate-900/90 backdrop-blur-sm relative z-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-cyan-400">
-              Tech Stack
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+              Design Tools
             </h2>
-            <div className="w-16 sm:w-24 h-1 bg-cyan-400 mx-auto mb-6"></div>
+            <div className="w-16 sm:w-24 h-1 bg-gradient-to-r from-cyan-400 to-purple-600 mx-auto mb-6"></div>
             <p className="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto px-2">
-              Tools and technologies I use to deliver comprehensive testing
-              solutions
+              Tools and technologies I use to create exceptional digital experiences
             </p>
           </div>
 
@@ -371,7 +457,7 @@ const Index = () => {
               return (
                 <Card
                   key={index}
-                  className="bg-slate-800 border-slate-700 hover:border-cyan-400 transition-all duration-300 transform hover:scale-105"
+                  className="bg-slate-800/60 backdrop-blur-sm border-slate-700/50 hover:border-cyan-400/50 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-cyan-400/10"
                 >
                   <CardContent className="p-4 sm:p-6 text-center">
                     <div className="flex justify-center mb-3">
@@ -380,7 +466,7 @@ const Index = () => {
                     <h3 className="font-semibold text-white mb-2 text-sm sm:text-base">
                       {tech.name}
                     </h3>
-                    <p className="text-xs sm:text-sm text-cyan-400">
+                    <p className="text-xs sm:text-sm text-purple-400">
                       {tech.category}
                     </p>
                   </CardContent>
@@ -391,54 +477,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Services Section - Enhanced responsive */}
-      <section id="services" className="py-12 sm:py-16 lg:py-20 bg-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-cyan-400">
-              Services
-            </h2>
-            <div className="w-16 sm:w-24 h-1 bg-cyan-400 mx-auto mb-6"></div>
-            <p className="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto px-2">
-              Comprehensive testing services to ensure your applications meet
-              the highest quality standards
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
-            {services.map((service, index) => (
-              <Card
-                key={index}
-                className="bg-slate-900 border-slate-700 hover:border-cyan-400 transition-all duration-300"
-              >
-                <CardHeader>
-                  <CardTitle className="text-lg sm:text-xl text-cyan-400">
-                    {service.title}
-                  </CardTitle>
-                  <CardDescription className="text-slate-300 text-sm sm:text-base">
-                    {service.description}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2">
-                    {service.features.map((feature, featureIndex) => (
-                      <li
-                        key={featureIndex}
-                        className="flex items-center text-slate-300 text-sm sm:text-base"
-                      >
-                        <span className="w-2 h-2 bg-cyan-400 rounded-full mr-3 flex-shrink-0"></span>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Projects Section - Enhanced responsive */}
+      {/* Projects Section */}
       {/* 
       <section id="projects" className="py-12 sm:py-16 lg:py-20 bg-slate-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -519,8 +558,8 @@ const Index = () => {
       </section>
       */}
 
-      {/* Contact Section - Enhanced responsive */}
-      <section id="contact" className="py-12 sm:py-16 lg:py-20 bg-slate-900">
+      {/* Contact Section */}
+      <section id="contact" className="py-12 sm:py-16 lg:py-20 bg-slate-900/90 backdrop-blur-sm relative z-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 sm:mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-cyan-400">
@@ -627,12 +666,11 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Footer - Enhanced responsive */}
-      <footer className="bg-slate-800 py-6 sm:py-8 border-t border-slate-700">
+      {/* Footer */}
+      <footer className="bg-slate-800/80 backdrop-blur-sm py-6 sm:py-8 border-t border-slate-700/50 relative z-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-slate-400 text-sm sm:text-base">
-            © 2024 Mark Anthony Alvarez. QA Engineer passionate about quality
-            and excellence.
+            © 2024 Mark Anthony Alvarez. UI/UX Designer creating immersive digital experiences.
           </p>
         </div>
       </footer>
