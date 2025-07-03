@@ -32,9 +32,25 @@ const ParallaxMountain = () => {
     renderer.setPixelRatio(window.devicePixelRatio);
     mountRef.current.appendChild(renderer.domElement);
 
-    // Create mountain geometry
+    // Create mountain geometry with more detailed 3D structure
     const createMountain = (baseWidth: number, height: number, segments: number) => {
       const geometry = new THREE.ConeGeometry(baseWidth, height, segments);
+      
+      // Add vertex displacement for more realistic mountain shape
+      const positions = geometry.attributes.position.array as Float32Array;
+      for (let i = 0; i < positions.length; i += 3) {
+        const x = positions[i];
+        const y = positions[i + 1];
+        const z = positions[i + 2];
+        
+        // Add some randomness to create a more natural mountain shape
+        if (y > -height * 0.8) { // Only affect upper portions
+          positions[i] += (Math.random() - 0.5) * 0.5;
+          positions[i + 2] += (Math.random() - 0.5) * 0.5;
+        }
+      }
+      geometry.attributes.position.needsUpdate = true;
+      geometry.computeVertexNormals();
       
       // Create snow texture
       const canvas = document.createElement('canvas');
@@ -77,58 +93,78 @@ const ParallaxMountain = () => {
       return new THREE.Mesh(geometry, material);
     };
 
-    // Create mountain range
+    // Create mountain range with better 3D positioning
     const mountains = new THREE.Group();
     
     // Background mountains (smaller, further)
-    const backMountain1 = createMountain(15, 20, 8);
-    backMountain1.position.set(-25, -5, -40);
+    const backMountain1 = createMountain(15, 20, 12);
+    backMountain1.position.set(-30, -5, -50);
     backMountain1.rotation.y = Math.PI * 0.1;
     mountains.add(backMountain1);
     
-    const backMountain2 = createMountain(12, 18, 8);
-    backMountain2.position.set(20, -6, -35);
+    const backMountain2 = createMountain(12, 18, 12);
+    backMountain2.position.set(25, -6, -45);
     backMountain2.rotation.y = Math.PI * -0.2;
     mountains.add(backMountain2);
     
+    const backMountain3 = createMountain(10, 15, 10);
+    backMountain3.position.set(-50, -7, -60);
+    backMountain3.rotation.y = Math.PI * 0.3;
+    mountains.add(backMountain3);
+    
     // Mid-ground mountains
-    const midMountain1 = createMountain(20, 25, 8);
-    midMountain1.position.set(-15, -3, -25);
+    const midMountain1 = createMountain(20, 25, 14);
+    midMountain1.position.set(-20, -3, -30);
     midMountain1.rotation.y = Math.PI * 0.15;
     mountains.add(midMountain1);
     
-    const midMountain2 = createMountain(18, 28, 8);
-    midMountain2.position.set(25, -4, -30);
+    const midMountain2 = createMountain(18, 28, 14);
+    midMountain2.position.set(30, -4, -35);
     midMountain2.rotation.y = Math.PI * -0.1;
     mountains.add(midMountain2);
     
-    // Foreground mountains (larger, closer)
-    const frontMountain1 = createMountain(25, 35, 8);
-    frontMountain1.position.set(-10, 0, -15);
+    const midMountain3 = createMountain(16, 22, 12);
+    midMountain3.position.set(0, -2, -28);
+    midMountain3.rotation.y = Math.PI * 0.05;
+    mountains.add(midMountain3);
+    
+    // Foreground mountains (larger, closer) - spanning more width
+    const frontMountain1 = createMountain(35, 40, 16);
+    frontMountain1.position.set(-25, 0, -18);
     frontMountain1.rotation.y = Math.PI * 0.05;
     mountains.add(frontMountain1);
     
-    const frontMountain2 = createMountain(30, 40, 8);
-    frontMountain2.position.set(15, -2, -20);
+    const frontMountain2 = createMountain(40, 45, 16);
+    frontMountain2.position.set(20, -2, -22);
     frontMountain2.rotation.y = Math.PI * -0.08;
     mountains.add(frontMountain2);
     
+    const frontMountain3 = createMountain(30, 35, 14);
+    frontMountain3.position.set(-60, -1, -25);
+    frontMountain3.rotation.y = Math.PI * 0.2;
+    mountains.add(frontMountain3);
+    
+    const frontMountain4 = createMountain(32, 38, 14);
+    frontMountain4.position.set(55, -3, -27);
+    frontMountain4.rotation.y = Math.PI * -0.15;
+    mountains.add(frontMountain4);
+    
     scene.add(mountains);
 
-    // Create falling snow particles - REDUCED from 1000 to 300
+    // Create falling snow particles - REDUCED by 20% from 300 to 240
     const snowGeometry = new THREE.BufferGeometry();
     const snowVertices = [];
     const snowVelocities = [];
     
-    for (let i = 0; i < 300; i++) {
+    for (let i = 0; i < 240; i++) {
       snowVertices.push(
-        (Math.random() - 0.5) * 100, // x
+        (Math.random() - 0.5) * 120, // x - increased spread
         Math.random() * 50 + 10,     // y
-        (Math.random() - 0.5) * 100  // z
+        (Math.random() - 0.5) * 120  // z - increased spread
       );
       snowVelocities.push(
         (Math.random() - 0.5) * 0.1, // x velocity
-        Math.random() * 0.15 + 0.05,   // y velocity (falling) - REDUCED speed
+        Math.random() * 0.12 + 0.05,   // y velocity (falling)
         (Math.random() - 0.5) * 0.1  // z velocity
       );
     }
@@ -138,9 +174,9 @@ const ParallaxMountain = () => {
     
     const snowMaterial = new THREE.PointsMaterial({ 
       color: 0xffffff, 
-      size: 0.2, // REDUCED size from 0.3 to 0.2
+      size: 0.15,
       transparent: true,
-      opacity: 0.6 // REDUCED opacity from 0.8 to 0.6
+      opacity: 0.5
     });
     
     const snow = new THREE.Points(snowGeometry, snowMaterial);
@@ -165,7 +201,7 @@ const ParallaxMountain = () => {
     rightLight.position.set(15, 8, 5);
     scene.add(rightLight);
 
-    camera.position.set(0, 5, 10);
+    camera.position.set(0, 8, 15);
     camera.lookAt(0, 0, -20);
 
     // Store scene references
@@ -189,23 +225,32 @@ const ParallaxMountain = () => {
       
       sceneRef.current.scrollY = scrolled;
       
-      // Parallax effect - different layers move at different speeds - SUBTLE movement
+      // Parallax effect - different layers move at different speeds with proper bounds
       sceneRef.current.mountains.children.forEach((mountain, index) => {
-        const speed = (index + 1) * 0.0001; // REDUCED from 0.0003
-        mountain.position.y += scrolled * speed * 0.1; // REDUCED effect
+        const layerSpeed = (index % 3 + 1) * 0.0001;
+        const maxOffset = 2; // Limit movement
+        const offset = Math.max(-maxOffset, Math.min(maxOffset, scrolled * layerSpeed));
         
-        // Zoom effect based on scroll - GENTLE zoom
-        const baseScale = 1 + scrollProgress * 0.1; // REDUCED from 0.3
-        mountain.scale.setScalar(baseScale);
+        mountain.position.y = mountain.userData.originalY || mountain.position.y;
+        if (!mountain.userData.originalY) {
+          mountain.userData.originalY = mountain.position.y;
+        }
+        mountain.position.y = mountain.userData.originalY + offset;
+        
+        // Gentle zoom effect
+        const baseScale = 1 + scrollProgress * 0.05;
+        mountain.scale.setScalar(Math.max(0.8, Math.min(1.2, baseScale)));
       });
       
-      // Camera movement for immersive feel - SUBTLE movement
-      sceneRef.current.camera.position.z = 10 + scrollProgress * 2; // REDUCED from 5
-      sceneRef.current.camera.position.y = 5 + scrollProgress * 1; // REDUCED from 3
-      sceneRef.current.camera.lookAt(0, scrollProgress * -1, -20); // REDUCED from -2
+      // Camera movement for immersive feel - very subtle
+      const baseZ = 15;
+      const baseY = 8;
+      sceneRef.current.camera.position.z = baseZ + scrollProgress * 1;
+      sceneRef.current.camera.position.y = baseY + scrollProgress * 0.5;
+      sceneRef.current.camera.lookAt(0, scrollProgress * -0.5, -20);
     };
 
-    // Animation loop
+    // Animation loop with continuous 3D mountain animation
     const animate = () => {
       if (!sceneRef.current) return;
       
@@ -224,15 +269,29 @@ const ParallaxMountain = () => {
         // Reset particle if it falls below the ground
         if (positions.getY(i) < -10) {
           positions.setY(i, Math.random() * 20 + 30);
-          positions.setX(i, (Math.random() - 0.5) * 100);
-          positions.setZ(i, (Math.random() - 0.5) * 100);
+          positions.setX(i, (Math.random() - 0.5) * 120);
+          positions.setZ(i, (Math.random() - 0.5) * 120);
         }
       }
       positions.needsUpdate = true;
 
-      // Very subtle mountain animation
+      // Continuous 3D mountain animation - breathing/swaying effect
+      const time = Date.now() * 0.001;
       sceneRef.current.mountains.children.forEach((mountain, index) => {
-        mountain.rotation.y += Math.sin(Date.now() * 0.001 + index) * 0.00005; // REDUCED from 0.0001
+        // Subtle breathing animation
+        const breathingScale = 1 + Math.sin(time * 0.5 + index * 0.5) * 0.02;
+        mountain.scale.y = breathingScale;
+        
+        // Gentle swaying rotation
+        const baseRotationY = mountain.userData.baseRotationY || mountain.rotation.y;
+        if (!mountain.userData.baseRotationY) {
+          mountain.userData.baseRotationY = mountain.rotation.y;
+        }
+        mountain.rotation.y = baseRotationY + Math.sin(time * 0.3 + index) * 0.01;
+        
+        // Slight up-down movement
+        const originalY = mountain.userData.originalY || mountain.position.y;
+        mountain.position.y = originalY + Math.sin(time * 0.4 + index * 0.7) * 0.1;
       });
 
       sceneRef.current.renderer.render(sceneRef.current.scene, sceneRef.current.camera);

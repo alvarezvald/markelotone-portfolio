@@ -303,10 +303,10 @@ const Index = () => {
       <section id="about" className="py-12 sm:py-16 lg:py-20 bg-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-emerald-400">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-cyan-400">
               About Me
             </h2>
-            <div className="w-16 sm:w-24 h-1 bg-emerald-400 mx-auto"></div>
+            <div className="w-16 sm:w-24 h-1 bg-cyan-400 mx-auto"></div>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center">
@@ -355,10 +355,10 @@ const Index = () => {
       <section id="tech-stack" className="py-12 sm:py-16 lg:py-20 bg-slate-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-violet-400">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-cyan-400">
               Tech Stack
             </h2>
-            <div className="w-16 sm:w-24 h-1 bg-violet-400 mx-auto mb-6"></div>
+            <div className="w-16 sm:w-24 h-1 bg-cyan-400 mx-auto mb-6"></div>
             <p className="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto px-2">
               Tools and technologies I use to deliver comprehensive testing
               solutions
@@ -395,10 +395,10 @@ const Index = () => {
       <section id="services" className="py-12 sm:py-16 lg:py-20 bg-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-rose-400">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-cyan-400">
               Services
             </h2>
-            <div className="w-16 sm:w-24 h-1 bg-rose-400 mx-auto mb-6"></div>
+            <div className="w-16 sm:w-24 h-1 bg-cyan-400 mx-auto mb-6"></div>
             <p className="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto px-2">
               Comprehensive testing services to ensure your applications meet
               the highest quality standards
@@ -523,10 +523,10 @@ const Index = () => {
       <section id="contact" className="py-12 sm:py-16 lg:py-20 bg-slate-900">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-amber-400">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-cyan-400">
               Get In Touch
             </h2>
-            <div className="w-16 sm:w-24 h-1 bg-amber-400 mx-auto mb-6"></div>
+            <div className="w-16 sm:w-24 h-1 bg-cyan-400 mx-auto mb-6"></div>
             <p className="text-slate-300 text-base sm:text-lg px-2">
               Ready to discuss your testing needs? Let's connect and ensure your
               applications deliver exceptional quality.
