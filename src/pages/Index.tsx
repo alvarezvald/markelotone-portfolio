@@ -1,3 +1,4 @@
+
 import { useEffect, useRef, useState } from "react";
 import {
   Mail,
@@ -22,7 +23,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import ThreeScene from "@/components/ThreeScene";
+import ParallaxMountain from "@/components/ParallaxMountain";
 import { validateContactForm, sanitizeInput } from "@/utils/formSecurity";
 import { sendContactEmail } from "@/utils/emailService";
 
@@ -265,13 +266,13 @@ const Index = () => {
         </div>
       </nav>
 
-      {/* Hero Section with 3D Background - Enhanced responsive */}
+      {/* Hero Section with 3D Mountain Background - Enhanced responsive */}
       <section
         id="home"
         className="relative h-screen flex items-center justify-center overflow-hidden"
       >
         <div className="absolute inset-0 z-0 w-full h-full">
-          <ThreeScene />
+          <ParallaxMountain />
         </div>
 
         <div className="relative z-10 text-center max-w-4xl mx-auto px-4 sm:px-6">
