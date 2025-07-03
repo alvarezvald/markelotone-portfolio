@@ -115,12 +115,12 @@ const ParallaxMountain = () => {
     
     scene.add(mountains);
 
-    // Create falling snow particles
+    // Create falling snow particles - REDUCED from 1000 to 300
     const snowGeometry = new THREE.BufferGeometry();
     const snowVertices = [];
     const snowVelocities = [];
     
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < 300; i++) {
       snowVertices.push(
         (Math.random() - 0.5) * 100, // x
         Math.random() * 50 + 10,     // y
@@ -128,7 +128,7 @@ const ParallaxMountain = () => {
       );
       snowVelocities.push(
         (Math.random() - 0.5) * 0.1, // x velocity
-        Math.random() * 0.2 + 0.1,   // y velocity (falling)
+        Math.random() * 0.15 + 0.05,   // y velocity (falling) - REDUCED speed
         (Math.random() - 0.5) * 0.1  // z velocity
       );
     }
@@ -138,9 +138,9 @@ const ParallaxMountain = () => {
     
     const snowMaterial = new THREE.PointsMaterial({ 
       color: 0xffffff, 
-      size: 0.3,
+      size: 0.2, // REDUCED size from 0.3 to 0.2
       transparent: true,
-      opacity: 0.8
+      opacity: 0.6 // REDUCED opacity from 0.8 to 0.6
     });
     
     const snow = new THREE.Points(snowGeometry, snowMaterial);
@@ -179,31 +179,30 @@ const ParallaxMountain = () => {
       scrollY: 0
     };
 
-    // Scroll handler for parallax effect
+    // Scroll handler for parallax effect - FIXED to prevent mountain disappearing
     const handleScroll = () => {
       if (!sceneRef.current) return;
       
       const scrolled = window.pageYOffset;
-      const rate = scrolled * -0.5;
       const heroHeight = window.innerHeight;
       const scrollProgress = Math.min(scrolled / heroHeight, 1);
       
       sceneRef.current.scrollY = scrolled;
       
-      // Parallax effect - different layers move at different speeds
+      // Parallax effect - different layers move at different speeds - SUBTLE movement
       sceneRef.current.mountains.children.forEach((mountain, index) => {
-        const speed = (index + 1) * 0.0003;
-        mountain.position.y += rate * speed;
+        const speed = (index + 1) * 0.0001; // REDUCED from 0.0003
+        mountain.position.y += scrolled * speed * 0.1; // REDUCED effect
         
-        // Zoom effect based on scroll
-        const baseScale = 1 + scrollProgress * 0.3;
+        // Zoom effect based on scroll - GENTLE zoom
+        const baseScale = 1 + scrollProgress * 0.1; // REDUCED from 0.3
         mountain.scale.setScalar(baseScale);
       });
       
-      // Camera movement for immersive feel
-      sceneRef.current.camera.position.z = 10 + scrollProgress * 5;
-      sceneRef.current.camera.position.y = 5 + scrollProgress * 3;
-      sceneRef.current.camera.lookAt(0, scrollProgress * -2, -20);
+      // Camera movement for immersive feel - SUBTLE movement
+      sceneRef.current.camera.position.z = 10 + scrollProgress * 2; // REDUCED from 5
+      sceneRef.current.camera.position.y = 5 + scrollProgress * 1; // REDUCED from 3
+      sceneRef.current.camera.lookAt(0, scrollProgress * -1, -20); // REDUCED from -2
     };
 
     // Animation loop
@@ -231,9 +230,9 @@ const ParallaxMountain = () => {
       }
       positions.needsUpdate = true;
 
-      // Subtle mountain animation
+      // Very subtle mountain animation
       sceneRef.current.mountains.children.forEach((mountain, index) => {
-        mountain.rotation.y += Math.sin(Date.now() * 0.001 + index) * 0.0001;
+        mountain.rotation.y += Math.sin(Date.now() * 0.001 + index) * 0.00005; // REDUCED from 0.0001
       });
 
       sceneRef.current.renderer.render(sceneRef.current.scene, sceneRef.current.camera);
