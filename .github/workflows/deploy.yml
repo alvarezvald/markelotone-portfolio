@@ -28,4 +28,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           personal_token: ${{ secrets.GH_PAT }}
-          publish_dir: ./build # or ./build depending on your project output
+          publish_dir: ./dist # or ./build depending on your project output
