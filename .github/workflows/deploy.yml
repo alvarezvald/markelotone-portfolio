@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main # Change if your source branch is different
+      - main
 
 jobs:
   build-and-deploy:
@@ -16,22 +16,20 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18 # Or your preferred Node.js version
+          node-version: 18
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build project
         run: npm run build -- --mode production
 
-      # ✅ Create CNAME file for custom domain
-      - name: Add CNAME
+      - name: Add CNAME for custom domain
         run: echo "markelotone.com" > ./dist/CNAME
 
-      # ✅ Deploy to gh-pages branch
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          personal_token: ${{ secrets.GH_PAT }} # PAT secret
-          publish_dir: ./dist # Adjust if build outputs elsewhere
-          publish_branch: gh-pages # ✅ Deployment branch
+          github_token: ${{ secrets.GITHUB_TOKEN }} # ✅ Use built-in token unless PAT is required
+          publish_branch: gh-pages
+          publish_dir: ./dist
