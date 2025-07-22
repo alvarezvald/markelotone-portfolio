@@ -8,10 +8,9 @@ export interface EmailData {
 }
 
 export const sendContactEmail = async (data: EmailData): Promise<void> => {
-  // These will need to be configured with your EmailJS account
-  const serviceId = 'YOUR_SERVICE_ID';
-  const templateId = 'YOUR_TEMPLATE_ID';
-  const publicKey = 'YOUR_PUBLIC_KEY';
+  const serviceId = 'service_2znje0u';
+  const templateId = 'template_pyie4ds';
+  const publicKey = 'TkJv59OMNojkPGhi7';
 
   const templateParams = {
     from_name: data.name,
