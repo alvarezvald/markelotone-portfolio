@@ -24,9 +24,13 @@ jobs:
       - name: Build project
         run: npm run build -- --mode production
 
+      # ✅ Add CNAME file for custom domain
+      - name: Add CNAME
+        run: echo "markelotone.com" > ./dist/CNAME
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          personal_token: ${{ secrets.GH_PAT }}
-          publish_dir: ./dist # or ./build depending on your project output
+          personal_token: ${{ secrets.GH_PAT }} # Your GitHub PAT secret
+          publish_dir: ./dist # Adjust if your output folder is different
+          publish_branch: ghactions # ✅ Use the custom deployment branch
