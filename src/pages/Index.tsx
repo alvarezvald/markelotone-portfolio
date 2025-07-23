@@ -139,7 +139,7 @@ const Index = () => {
     { 
       name: "Charles Proxy", 
       category: "Network Analysis", 
-      icon: () => <img src="/images/charles-proxy-logo-alt.png" alt="Charles Proxy" className="w-8 h-8" />
+      icon: () => <img src="/images/charles-proxy-official.png" alt="Charles Proxy" className="w-8 h-8" />
     },
   ];
 
