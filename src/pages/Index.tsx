@@ -121,10 +121,26 @@ const Index = () => {
   };
 
   const techStack = [
-    { name: "Playwright", category: "Automation", icon: Globe },
-    { name: "Postman", category: "API Testing", icon: Globe },
-    { name: "JavaScript", category: "Programming", icon: Code },
-    { name: "Charles Proxy", category: "Network Analysis", icon: Network },
+    { 
+      name: "Playwright", 
+      category: "Automation", 
+      icon: () => <img src="/src/assets/playwright-logo.svg" alt="Playwright" className="w-8 h-8" />
+    },
+    { 
+      name: "Postman", 
+      category: "API Testing", 
+      icon: () => <img src="/src/assets/postman-logo.svg" alt="Postman" className="w-8 h-8" />
+    },
+    { 
+      name: "JavaScript", 
+      category: "Programming", 
+      icon: () => <img src="/src/assets/javascript-logo.svg" alt="JavaScript" className="w-8 h-8" />
+    },
+    { 
+      name: "Charles Proxy", 
+      category: "Network Analysis", 
+      icon: () => <img src="/src/assets/charles-proxy-logo.png" alt="Charles Proxy" className="w-8 h-8" />
+    },
   ];
 
   const services = [
@@ -375,7 +391,7 @@ const Index = () => {
                 >
                   <CardContent className="p-4 sm:p-6 text-center">
                     <div className="flex justify-center mb-3">
-                      <IconComponent size={32} className="text-cyan-400" />
+                      <IconComponent />
                     </div>
                     <h3 className="font-semibold text-white mb-2 text-sm sm:text-base">
                       {tech.name}
