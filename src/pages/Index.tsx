@@ -124,22 +124,22 @@ const Index = () => {
     { 
       name: "Playwright", 
       category: "Automation", 
-      icon: () => <img src="/src/assets/playwright-logo.svg" alt="Playwright" className="w-8 h-8" />
+      icon: () => <img src="/images/playwright-logo.svg" alt="Playwright" className="w-8 h-8" />
     },
     { 
       name: "Postman", 
       category: "API Testing", 
-      icon: () => <img src="/src/assets/postman-logo.svg" alt="Postman" className="w-8 h-8" />
+      icon: () => <img src="/images/postman-logo.svg" alt="Postman" className="w-8 h-8" />
     },
     { 
       name: "JavaScript", 
       category: "Programming", 
-      icon: () => <img src="/src/assets/javascript-logo.svg" alt="JavaScript" className="w-8 h-8" />
+      icon: () => <img src="/images/javascript-logo.svg" alt="JavaScript" className="w-8 h-8" />
     },
     { 
       name: "Charles Proxy", 
       category: "Network Analysis", 
-      icon: () => <img src="/src/assets/charles-proxy-logo.png" alt="Charles Proxy" className="w-8 h-8" />
+      icon: () => <img src="/images/charles-proxy-logo.png" alt="Charles Proxy" className="w-8 h-8" />
     },
   ];
 
