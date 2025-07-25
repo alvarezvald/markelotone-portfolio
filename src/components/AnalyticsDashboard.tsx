@@ -73,10 +73,10 @@ export const AnalyticsDashboard = () => {
   }, [isVisible]);
 
   if (!isVisible) {
-    return (
-      <div className="fixed bottom-4 right-4 text-xs text-slate-500">
-        Press Ctrl+Shift+A for analytics
-      </div>
+    return (null
+      // <div className="fixed bottom-4 right-4 text-xs text-slate-500">
+      //   Press Ctrl+Shift+A for analytics
+      // </div>
     );
   }
 
