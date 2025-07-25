@@ -25,6 +25,8 @@ import { useToast } from "@/hooks/use-toast";
 import ThreeScene from "@/components/ThreeScene";
 import { validateContactForm, sanitizeInput } from "@/utils/formSecurity";
 import { sendContactEmail } from "@/utils/emailService";
+import { analytics } from "@/utils/analytics";
+import { AnalyticsDashboard } from "@/components/AnalyticsDashboard";
 
 const Index = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -38,6 +40,11 @@ const Index = () => {
   const [submissionCount, setSubmissionCount] = useState(0);
   const lastSubmissionTime = useRef<number>(0);
   const { toast } = useToast();
+
+  // Track page view on component mount
+  useEffect(() => {
+    analytics.trackEvent('page_view', { page: 'home' });
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -94,6 +101,13 @@ const Index = () => {
       // Send actual email using EmailJS
       await sendContactEmail(sanitizedData);
 
+      // Track successful form submission
+      analytics.trackEvent('contact_form_submit', { 
+        success: true,
+        name: sanitizedData.name,
+        email: sanitizedData.email
+      });
+
       toast({
         title: "Message Sent!",
         description: "Thank you for reaching out. I'll get back to you soon.",
@@ -116,6 +130,7 @@ const Index = () => {
   };
 
   const scrollToSection = (id: string) => {
+    analytics.trackEvent('navigation_click', { section: id });
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     setIsMenuOpen(false);
   };
@@ -124,22 +139,22 @@ const Index = () => {
     { 
       name: "Playwright", 
       category: "Automation", 
-      icon: () => <img src="/images/playwright-logo-alt.svg" alt="Playwright" className="w-8 h-8" />
+      icon: () => <img src="/images/playwright-logo-alt.svg" alt="Playwright testing framework logo" className="w-8 h-8" loading="lazy" width="32" height="32" />
     },
     { 
       name: "Postman", 
       category: "API Testing", 
-      icon: () => <img src="/images/postman-logo.svg" alt="Postman" className="w-8 h-8" />
+      icon: () => <img src="/images/postman-logo.svg" alt="Postman API testing tool logo" className="w-8 h-8" loading="lazy" width="32" height="32" />
     },
     { 
       name: "JavaScript", 
       category: "Programming", 
-      icon: () => <img src="/images/javascript-logo.svg" alt="JavaScript" className="w-8 h-8" />
+      icon: () => <img src="/images/javascript-logo.svg" alt="JavaScript programming language logo" className="w-8 h-8" loading="lazy" width="32" height="32" />
     },
     { 
       name: "Charles Proxy", 
       category: "Network Analysis", 
-      icon: () => <img src="/images/charles-proxy-official.jpg" alt="Charles Proxy" className="w-8 h-8" />
+      icon: () => <img src="/images/charles-proxy-official.jpg" alt="Charles Proxy network debugging tool logo" className="w-8 h-8" loading="lazy" width="32" height="32" />
     },
   ];
 
@@ -192,6 +207,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-slate-900 text-white">
+      <AnalyticsDashboard />
       {/* Navigation - Enhanced for mobile */}
       <nav className="fixed top-0 w-full z-50 bg-slate-900/95 backdrop-blur-sm border-b border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -358,11 +374,17 @@ const Index = () => {
             <div className="flex justify-center order-1 lg:order-2">
               <div>
                 <div className="text-center">
+                <picture>
+                  <source srcSet="./images/alvarez.webp" type="image/webp" />
                   <img
                     src="./images/alvarez.jpg"
-                    alt=""
+                    alt="Mark Anthony Alvarez - QA Engineer profile picture"
                     className="w-64 h-64 sm:w-80 sm:h-80 bg-slate-700 rounded-full flex items-center justify-center border-4 border-cyan-400"
+                    loading="lazy"
+                    width="320"
+                    height="320"
                   />
+                </picture>
                 </div>
               </div>
             </div>
