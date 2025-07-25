@@ -325,13 +325,15 @@ const Index = () => {
             Get In Touch
           </Button>
         </div>
-
         <div className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <Button
+          <Button
+            variant="ghost"
+            className="bg-transparent p-0 hover:bg-transparent focus:ring-0"
             onClick={() => scrollToSection("about")}>
           <ChevronDown size={24} className="text-cyan-400 sm:w-8 sm:h-8" />
           </Button>
         </div>
+
       </section>
 
       {/* About Section - Enhanced responsive */}
