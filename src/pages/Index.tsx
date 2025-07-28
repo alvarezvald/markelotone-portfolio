@@ -351,26 +351,16 @@ const Index = () => {
               <h3 className="text-xl sm:text-2xl font-semibold mb-4">
                 QA Engineer with a Passion for Quality
               </h3>
-              <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
-                I'm a dedicated QA Engineer who thrives on ensuring software
-                quality through meticulous testing and automation. My expertise
-                spans across web applications, mobile apps, and API testing
-                using modern tools and methodologies.
-              </p>
-              <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
-                I specialize in both manual and automated testing, with a
-                particular love for front-end and end-to-end testing. There's
-                nothing more satisfying than diving deep into complex issues,
-                tracking down elusive bugs, and ensuring users have seamless
-                experiences.
-              </p>
-              <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
-                When I'm not testing applications, you'll find me exploring the
-                outdoors through hiking and climbing, staying fit with endurance
-                sports, or unwinding with video games. I believe in maintaining
-                a healthy work-life balance while staying passionate about
-                technology.
-              </p>
+         <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
+  I’m a QA Engineer who grew up pressing buttons just to see what breaks — now I get paid for it. Not in the “oops, my bad” way, more like “found the bug, here’s how to kill it.” I dig deep, figure out what’s wrong, and keep things running smooth.
+</p>
+<p className="text-slate-300 text-base sm:text-lg leading-relaxed">
+  I work across web, mobile, and APIs — manual or automated, doesn’t matter. I’ve got a thing for front-end and end-to-end testing. If there’s a glitch hiding in a weird flow or a flaky test that keeps ghosting, I’ll find it. I like solving real problems, not just ticking checkboxes.
+</p>
+<p className="text-slate-300 text-base sm:text-lg leading-relaxed">
+  When I’m off the clock, I’m either out hiking, boxing, or grinding through some RPG. Gotta keep the balance — burn out’s real, but so is the fun of being part of a team that will ship a functional product. 
+</p>
+
             </div>
 
             <div className="flex justify-center order-1 lg:order-2">
