@@ -358,7 +358,7 @@ const Index = () => {
   Web, mobile, APIs — I’m comfortable across the board. Manual when it calls for it, automated when it saves time. I look for real issues, not busywork. It’s about helping the product hold up under pressure.
 </p>
 <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
-  Outside work, I stay active — hiking, boxing, a bit of gaming here and there. It keeps things balanced. Just doing what I do, staying sharp, and showing up ready.
+  Outside work, I stay active — hiking with friends, boxing, a bit of gaming here and there. It keeps things balanced.
 </p>
 
 
