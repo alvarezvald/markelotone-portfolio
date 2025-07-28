@@ -348,18 +348,19 @@ const Index = () => {
 
           <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center">
             <div className="space-y-4 sm:space-y-6 order-2 lg:order-1">
-              <h3 className="text-xl sm:text-2xl font-semibold mb-4">
-                QA Engineer with a Passion for Quality
-              </h3>
-         <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
-  I’m a QA Engineer who grew up pressing buttons just to see what breaks — now I get paid for it. Not in the “oops, my bad” way, more like “found the bug, here’s how to kill it.” I dig deep, figure out what’s wrong, and keep things running smooth.
+  <h3 className="text-xl sm:text-2xl font-semibold mb-4">
+  QA That Keeps Things Moving
+</h3>
+<p className="text-slate-300 text-base sm:text-lg leading-relaxed">
+  I make sure things work the way they should. If something’s off, I’ll catch it. I keep the process clean, focus on what matters, and help teams build solid, reliable software.
 </p>
 <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
-  I work across web, mobile, and APIs — manual or automated, doesn’t matter. I’ve got a thing for front-end and end-to-end testing. If there’s a glitch hiding in a weird flow or a flaky test that keeps ghosting, I’ll find it. I like solving real problems, not just ticking checkboxes.
+  Web, mobile, APIs — I’m comfortable across the board. Manual when it calls for it, automated when it saves time. I look for real issues, not busywork. It’s about helping the product hold up under pressure.
 </p>
 <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
-  When I’m off the clock, I’m either out hiking, boxing, or grinding through some RPG. Gotta keep the balance — burn out’s real, but so is the fun of being part of a team that will ship a functional product. 
+  Outside work, I stay active — hiking, boxing, a bit of gaming here and there. It keeps things balanced. Just doing what I do, staying sharp, and showing up ready.
 </p>
+
 
             </div>
 
