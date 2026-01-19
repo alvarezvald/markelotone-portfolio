@@ -665,7 +665,7 @@ const Index = () => {
       <footer className="bg-slate-800 py-6 sm:py-8 border-t border-slate-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-slate-400 text-sm sm:text-base">
-            © 2025 Mark Anthony Alvarez. QA Engineer passionate about quality
+            © 2026 Mark Anthony Alvarez. QA Engineer passionate about quality
             and excellence.
           </p>
         </div>
